@@ -19,7 +19,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TakeDamage(10f);
+            TakeDamage(1f);
             Debug.Log("Health Bar Updated: " + healthBar.value);
         }
     }

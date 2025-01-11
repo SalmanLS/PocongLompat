@@ -1,36 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectBounce : MonoBehaviour
 {
-    public float bounceSpeed = 8;
-    public float bounceAmplitude = 0.05f;
-    public float rotationSpeed = 90;
+    public float bounceSpeed = 8f; // Speed of the bounce animation
+    public float bounceAmplitude = 0.05f; // Amplitude of the bounce
+    public float rotationSpeed = 90f; // Speed of the object's spin
 
     private float startHeight;
     private float timeOffset;
+    private bool isOnGround = false; // Tracks whether the object is touching the ground
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Record the initial height of the object
         startHeight = transform.localPosition.y;
+        // Randomize the bounce animation offset
         timeOffset = Random.value * Mathf.PI * 2;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //animate
-        float finalheight = startHeight + Mathf.Sin(Time.time * bounceSpeed + timeOffset) * bounceAmplitude;
-        var position = transform.localPosition;
-        position.y = finalheight;
-        transform.localPosition = position;
+        if (isOnGround)
+        {
+            // Bounce animation
+            float finalHeight = startHeight + Mathf.Sin(Time.time * bounceSpeed + timeOffset) * bounceAmplitude;
+            var position = transform.localPosition;
+            position.y = finalHeight;
+            transform.localPosition = position;
 
-        //spin
-        Vector3 rotation = transform.localRotation.eulerAngles;
-        rotation.y += rotationSpeed * Time.deltaTime;
-        transform.localRotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
-        
+            // Spin animation
+            Vector3 rotation = transform.localRotation.eulerAngles;
+            rotation.y += rotationSpeed * Time.deltaTime;
+            transform.localRotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+        }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Check if the object touched the ground
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true; // Enable bouncing
+            startHeight = transform.localPosition.y + 0.5f;
+        }
+    }
+
 }

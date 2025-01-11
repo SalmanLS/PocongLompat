@@ -3,23 +3,32 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float maxHealth = 100f; // Maximum health
-    private float currentHealth; // Current health
+    public float maxHealth = 100f; 
+    private float currentHealth; 
+    public Slider healthBar; 
 
-    public Slider healthBar; // Reference to the health bar UI slider
+    private PlayerMovement playerMovement;
 
     private void Start()
     {
         currentHealth = maxHealth;
         healthBar.value = currentHealth;
         Debug.Log("Health Bar: " + healthBar.value);
+        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TakeDamage(1f);
+            if (playerMovement.hasPowerAttack)
+            {
+                TakeDamage(10f);
+            }
+            else
+            {
+                TakeDamage(0f);
+            }
             Debug.Log("Health Bar Updated: " + healthBar.value);
         }
     }

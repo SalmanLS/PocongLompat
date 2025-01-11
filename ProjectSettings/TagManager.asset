@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - PowerSpeed
+  - PowerAttack
+  - Enemy
+  - PowerShield
   layers:
   - Default
   - TransparentFX

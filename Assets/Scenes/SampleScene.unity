@@ -3706,7 +3706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89afdf5cadba78345bcf9e1d44072c59, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.71
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89afdf5cadba78345bcf9e1d44072c59, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8417,7 +8417,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 681852914}
-  - component: {fileID: 681852915}
   m_Layer: 0
   m_Name: Nature1
   m_TagString: Untagged
@@ -8451,33 +8450,6 @@ Transform:
   - {fileID: 2108268404}
   m_Father: {fileID: 551568994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &681852915
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681852913}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!4 &682355857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8903058273634951509, guid: f1fc5bb90ac285e4486771552d63bcb8, type: 3}

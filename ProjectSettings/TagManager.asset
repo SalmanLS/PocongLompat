@@ -9,6 +9,7 @@ TagManager:
   - PowerAttack
   - Enemy
   - PowerShield
+  - Environment
   layers:
   - Default
   - TransparentFX

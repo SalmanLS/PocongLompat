@@ -64,7 +64,7 @@ public class PocongMovement : MonoBehaviour
         // Check if the enemy touches the ground
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isOnGround = true; // Allow jumping again
+            isOnGround = true;
         }
     }
 }

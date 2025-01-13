@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class PocongMovement : MonoBehaviour
 {
-    private GameObject player; // Reference to the player
-    public float jumpForce = 10.0f; // Vertical force for the jump
-    public float horizontalForce = 5.0f; // Force toward the player
-    public float jumpInterval = 2.0f; // Time between jumps
+    private GameObject player; 
+    public float jumpForce = 10.0f; 
+    public float horizontalForce = 5.0f; 
+    public float jumpInterval = 2.0f; 
     private Rigidbody enemyRb;
-    private bool isOnGround = true; // To prevent jumping mid-air
+    public bool isOnGround = true;
+    private float offGroundTime = 0f;
+    public float respawnTime = 2f;
+    public AudioClip pocongStep;
+    public AudioClip pocongSound;
+    private AudioSource playerAudio;
+    public bool isPocongSoundPlayed = false;
 
     void Start()
     {
+        playerAudio = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
         enemyRb = GetComponent<Rigidbody>();
         enemyRb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -21,17 +28,29 @@ public class PocongMovement : MonoBehaviour
 
     void Update()
     {
+        if (!isOnGround)
+        {
+            offGroundTime += Time.deltaTime;
+
+            if (offGroundTime >= respawnTime)
+            {
+                Respawn();
+            }
+        }
+        else
+        {
+            offGroundTime = 0f;
+        }
         if (isOnGround)
         {
-            // Calculate the direction to the player
             Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-            directionToPlayer.y = 0; // Ignore vertical component
-
-            // Rotate the enemy's body to face the player, adjust for the model orientation
+            directionToPlayer.y = 0; 
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-
-            // Flip the enemy by 180 degrees on the Y-axis to correct the backward orientation
             transform.rotation = Quaternion.Euler(-90, targetRotation.eulerAngles.y + 180, 0);
+            if (!isPocongSoundPlayed)
+            {
+                StartCoroutine(PocongSound());
+            }   
         }
     }
 
@@ -41,10 +60,8 @@ public class PocongMovement : MonoBehaviour
         {
             if (isOnGround)
             {
-                // Calculate the direction toward the player
                 Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
 
-                // Apply jump force (vertical + horizontal components)
                 Vector3 jumpVector = new Vector3(
                     directionToPlayer.x * horizontalForce,
                     jumpForce,
@@ -52,19 +69,38 @@ public class PocongMovement : MonoBehaviour
                 );
                 enemyRb.AddForce(jumpVector, ForceMode.Impulse);
 
-                // Prevent mid-air jumps
                 isOnGround = false;
             }
-            yield return new WaitForSeconds(jumpInterval); // Wait before the next jump
+            yield return new WaitForSeconds(jumpInterval); 
         }
+    }
+
+    IEnumerator PocongSound()
+    {
+        isPocongSoundPlayed = true;
+        playerAudio.PlayOneShot(pocongSound);
+        yield return new WaitForSeconds(3f);
+        isPocongSoundPlayed = false;
+    }
+    private void Respawn()
+    {
+        transform.position =  new Vector3(player.transform.position.x + 1.5f, 2.0f, player.transform.position.z + 1.5f);
+        offGroundTime = 0f; 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the enemy touches the ground
         if (collision.gameObject.CompareTag("Ground"))
         {
+            playerAudio.PlayOneShot(pocongStep);
             isOnGround = true;
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = false; 
         }
     }
 }

@@ -19,18 +19,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (playerMovement.hasPowerAttack)
-            {
-                TakeDamage(10f);
-            }
-            else
-            {
-                TakeDamage(0f);
-            }
-            Debug.Log("Health Bar Updated: " + healthBar.value);
-        }
+        
     }
 
     public void TakeDamage(float damage)
@@ -47,13 +36,12 @@ public class EnemyHealth : MonoBehaviour
     }
     private void UpdateHealthBar()
     {
-        healthBar.value = currentHealth; // Update the health bar value
+        healthBar.value = currentHealth; 
         Debug.Log("Health: " + currentHealth);
     }
 
     private void Die()
     {
-        // Destroy the enemy
         Destroy(gameObject);
     }
 }

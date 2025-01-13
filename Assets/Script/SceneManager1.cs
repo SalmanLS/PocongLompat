@@ -23,11 +23,11 @@ public class SceneManager1 : MonoBehaviour
     public void GoScene2()
     {
         playerAudio.PlayOneShot(gameClip, 10.0f);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void exitScene2()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
 }

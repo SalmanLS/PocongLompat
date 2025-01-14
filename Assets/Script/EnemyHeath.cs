@@ -11,6 +11,9 @@ public class EnemyHealth : MonoBehaviour
     private AudioSource playerAudio;
     private bool isDead = false; // Prevent duplicate death logic
     private Rigidbody enemyRb;
+    public int objectScore;
+
+    private SceneManager2 sceneManager;
 
     private void Start()
     {
@@ -18,6 +21,8 @@ public class EnemyHealth : MonoBehaviour
         enemyRb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
         healthBar.value = currentHealth;
+
+        sceneManager=GameObject.Find("GameManager2").GetComponent<SceneManager2>();
     }
 
     public void TakeDamage(float damage)
@@ -56,6 +61,7 @@ public class EnemyHealth : MonoBehaviour
         {
             enemyRb.isKinematic = true; // Stop physics interaction
         }
+        sceneManager.AddScore(objectScore);
 
         // Optionally disable movement or rotation scripts here
         StartCoroutine(KillPocong());
@@ -65,6 +71,7 @@ public class EnemyHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(pocongDeath.length); // Wait for sound to finish
         Destroy(gameObject);
+        
     }
 
     public bool IsDead()

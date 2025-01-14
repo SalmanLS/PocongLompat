@@ -13,16 +13,22 @@ public class SceneManager2 : MonoBehaviour
     private float boundary = 20.0f;
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI activeText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreWaveText;
     private bool isSpawningPowerUps = false;
     private bool isSpawningWave = false;
     private bool isShowingPower = false;
 
     private PlayerMovement PlayerMovement;
 
+    private int score;
+    private int wave;
+
     void Start()
     {
         PlayerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         StartCoroutine(SpawnWaveAndPocong(enemyNumber));
+        AddWave(enemyNumber);
         SpawnPowerUps();
     }
 
@@ -99,6 +105,7 @@ public class SceneManager2 : MonoBehaviour
     {
         isSpawningWave = true;
         ShowWaveText(number);
+        AddWave(number);
         waveText.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         waveText.gameObject.SetActive(false);
@@ -123,5 +130,16 @@ public class SceneManager2 : MonoBehaviour
     private void ShowActiveText(string power)
     {
         activeText.text = power + " Power Active"; // Correctly update the text
+    }
+
+    public void AddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score : " + score;
+    }
+    private void AddWave(int waveScore)
+    {
+        scoreWaveText.text = "Wave : " + waveScore;
+
     }
 }

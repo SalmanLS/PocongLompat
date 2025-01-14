@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -72,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Game Over");
+                    StartCoroutine(GoToGameOver());
                 }
                 break;
 
@@ -157,6 +158,11 @@ public class PlayerMovement : MonoBehaviour
                 hasPowerAttack = false;
                 break;
         }
+    }
+    IEnumerator GoToGameOver()
+    {
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(2);
     }
 }
 

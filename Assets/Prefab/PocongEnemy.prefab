@@ -574,6 +574,7 @@ MonoBehaviour:
   maxHealth: 100
   healthBar: {fileID: 2594500232102417306}
   pocongDeath: {fileID: 8300000, guid: d425a1ba5e3359d4dbae8797acfcd0e5, type: 3}
+  objectScore: 100
 --- !u!82 &-513062009491133574
 AudioSource:
   m_ObjectHideFlags: 0

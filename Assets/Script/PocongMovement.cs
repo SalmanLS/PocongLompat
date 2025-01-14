@@ -16,6 +16,7 @@ public class PocongMovement : MonoBehaviour
     public AudioClip pocongSound;
     private AudioSource playerAudio;
     public bool isPocongSoundPlayed = false;
+    public float soundChance = 0.25f;
 
     void Start()
     {
@@ -47,10 +48,10 @@ public class PocongMovement : MonoBehaviour
             directionToPlayer.y = 0; 
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             transform.rotation = Quaternion.Euler(-90, targetRotation.eulerAngles.y + 180, 0);
-            if (!isPocongSoundPlayed)
+            if (!isPocongSoundPlayed && Random.value <= soundChance)
             {
                 StartCoroutine(PocongSound());
-            }   
+            }
         }
     }
 

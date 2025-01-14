@@ -26,6 +26,8 @@ public class SceneManager2 : MonoBehaviour
 
     void Start()
     {
+        score = 0;
+        MainManager.INSTANCE.playerScore = score;
         PlayerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         StartCoroutine(SpawnWaveAndPocong(enemyNumber));
         AddWave(enemyNumber);
@@ -136,10 +138,11 @@ public class SceneManager2 : MonoBehaviour
     {
         score += scoreToAdd;
         scoreText.text = "Score : " + score;
+        MainManager.INSTANCE.playerScore = score;
     }
     private void AddWave(int waveScore)
     {
         scoreWaveText.text = "Wave : " + waveScore;
-
+        MainManager.INSTANCE.playerWave = waveScore;
     }
 }

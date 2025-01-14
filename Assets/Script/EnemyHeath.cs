@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour
     private AudioSource playerAudio;
     private bool isDead = false; // Prevent duplicate death logic
     private Rigidbody enemyRb;
-    public int objectScore;
+    public int objectScore = 0;
 
     private SceneManager2 sceneManager;
 

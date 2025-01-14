@@ -12661,7 +12661,8 @@ MonoBehaviour:
   - {fileID: 7947456172127493569, guid: f8269c56a67597141a83dd335b19b64d, type: 3}
   waveText: {fileID: 1145635572}
   activeText: {fileID: 1609789483}
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 1464750175}
+  scoreWaveText: {fileID: 1873058967}
 --- !u!82 &997778240
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18396,7 +18397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score :'
+  m_text: 'Score : 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}

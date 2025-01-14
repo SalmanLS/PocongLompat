@@ -10,6 +10,8 @@ public class SceneManager1 : MonoBehaviour
     private AudioSource playerAudio;
     public Canvas canvasMenu;
     public Canvas canvasTutorial;
+    public TMP_InputField namaInput;
+    public TextMeshProUGUI alertText;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +24,20 @@ public class SceneManager1 : MonoBehaviour
     {
 
     }
-    public void GoScene2()
+    public void GoToPlay()
     {
         playerAudio.PlayOneShot(button);
-        StartCoroutine(TimeSwap());
+        if (namaInput.text == "")
+        {
+            alertText.gameObject.SetActive(true);
+            return;
+        }
+        else
+        {
+            MainManager.INSTANCE.playerName = namaInput.text;
+            StartCoroutine(TimeSwap());
+        }
+
     }
     public void GoToTutorial()
     {

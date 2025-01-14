@@ -51,9 +51,9 @@ public class SceneManager1 : MonoBehaviour
         canvasTutorial.gameObject.SetActive(false);
         canvasMenu.gameObject.SetActive(true);
     }
-    public void exitScene2()
+    public void exitGame()
     {
-        SceneManager.LoadScene(0);
+        Application.Quit();
     }
 
     IEnumerator TimeSwap()

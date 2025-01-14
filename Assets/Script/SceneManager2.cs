@@ -46,16 +46,6 @@ public class SceneManager2 : MonoBehaviour
         }
     }
 
-    private void SpawnPowerUps()
-    {
-        int powerUpIndex = Random.Range(0, powerUpPrefab.Length);
-        Instantiate(
-            powerUpPrefab[powerUpIndex],
-            GenerateSpawnLocation(),
-            powerUpPrefab[powerUpIndex].transform.rotation
-        );
-    }
-
     public Vector3 GenerateSpawnLocation()
     {
         Vector3 spawnLocation = new Vector3(
@@ -65,7 +55,15 @@ public class SceneManager2 : MonoBehaviour
         );
         return spawnLocation;
     }
-
+    private void SpawnPowerUps()
+    {
+        int powerUpIndex = Random.Range(0, powerUpPrefab.Length);
+        Instantiate(
+            powerUpPrefab[powerUpIndex],
+            GenerateSpawnLocation(),
+            powerUpPrefab[powerUpIndex].transform.rotation
+        );
+    }
     private void ShowWaveText(int waveNumber)
     {
         waveText.text = "Wave " + waveNumber; 

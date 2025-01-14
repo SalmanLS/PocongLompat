@@ -98,6 +98,7 @@ public class PocongMovement : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = false; 

@@ -117,21 +117,21 @@ public class SceneManager2 : MonoBehaviour
 
     IEnumerator ShowActivePower(string power)
     {
-        if (isShowingPower) yield break; // Prevent multiple coroutines
+        if (isShowingPower) yield break; 
 
         isShowingPower = true;
-        ShowActiveText(power); // Display the active power text
+        ShowActiveText(power); 
         activeText.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(5f);
 
         activeText.gameObject.SetActive(false);
-        isShowingPower = false; // Reset the flag after the coroutine ends
+        isShowingPower = false; 
     }
 
     private void ShowActiveText(string power)
     {
-        activeText.text = power + " Power Active"; // Correctly update the text
+        activeText.text = power + " Power Active"; 
     }
 
     public void AddScore(int scoreToAdd)

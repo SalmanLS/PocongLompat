@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     private Camera mainCamera;
-    public float baseMoveSpeed = 5f; // Default move speed
+    public float baseMoveSpeed = 5f; 
     private float currentMoveSpeed;
     public bool hasPowerSpeed = false;
     public bool hasPowerAttack = false;
     public bool hasPowerShield = false;
     public AudioClip pickedPower;
+    public AudioClip playerDeath;
     private AudioSource playerAudio;
 
     private void Start()
@@ -161,7 +162,8 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator GoToGameOver()
     {
-        yield return new WaitForSeconds(0.5f);
+        playerAudio.PlayOneShot(playerDeath);
+        yield return new WaitForSeconds(playerDeath.length);
         SceneManager.LoadScene(2);
     }
 }

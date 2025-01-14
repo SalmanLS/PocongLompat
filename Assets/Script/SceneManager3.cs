@@ -16,7 +16,6 @@ public class SceneManager3 : MonoBehaviour
     public TextMeshProUGUI bestScore;
     public TextMeshProUGUI bestWave;
 
-    // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = true;
@@ -39,7 +38,6 @@ public class SceneManager3 : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         

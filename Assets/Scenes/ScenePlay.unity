@@ -23029,6 +23029,7 @@ MonoBehaviour:
   hasPowerAttack: 0
   hasPowerShield: 0
   pickedPower: {fileID: 8300000, guid: d49ce35139b4fa646a32f06e29c6fa47, type: 3}
+  playerDeath: {fileID: 8300000, guid: 8698e45711dc13547ada232e1d3ea399, type: 3}
 --- !u!54 &1770143853
 Rigidbody:
   m_ObjectHideFlags: 0

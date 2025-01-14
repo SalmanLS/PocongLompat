@@ -13,13 +13,11 @@ public class SceneManager1 : MonoBehaviour
     public TMP_InputField namaInput;
     public TextMeshProUGUI alertText;
 
-    // Start is called before the first frame update
     void Start()
     {
         playerAudio = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
 

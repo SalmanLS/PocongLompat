@@ -50,13 +50,12 @@ public class PocongMovement : MonoBehaviour
         if (isOnGround && !GetComponent<EnemyHealth>().IsDead())
         {
             Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-            directionToPlayer.y = 0; // Prevent rotation on the Y-axis
+            directionToPlayer.y = 0; 
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             transform.rotation = Quaternion.Euler(-90, targetRotation.eulerAngles.y + 180, 0);
         }
         else if (GetComponent<EnemyHealth>().IsDead())
         {
-            // Freeze position and stop movement logic
             transform.position = transform.position;
         }
     }

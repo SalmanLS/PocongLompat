@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public Slider healthBar;
     public AudioClip pocongDeath;
     private AudioSource playerAudio;
-    private bool isDead = false; // Prevent duplicate death logic
+    private bool isDead = false; 
     private Rigidbody enemyRb;
     public int objectScore = 0;
 
@@ -27,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (isDead) return; // Skip logic if already dead
+        if (isDead) return; 
 
         currentHealth -= damage;
 
@@ -49,27 +49,22 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
-
-        // Play death sound
         if (playerAudio && pocongDeath)
         {
             playerAudio.PlayOneShot(pocongDeath);
         }
-
-        // Freeze the enemy in place
         if (enemyRb)
         {
-            enemyRb.isKinematic = true; // Stop physics interaction
+            enemyRb.isKinematic = true; 
         }
         sceneManager.AddScore(objectScore);
 
-        // Optionally disable movement or rotation scripts here
         StartCoroutine(KillPocong());
     }
 
     IEnumerator KillPocong()
     {
-        yield return new WaitForSeconds(pocongDeath.length); // Wait for sound to finish
+        yield return new WaitForSeconds(pocongDeath.length);
         Destroy(gameObject);
         
     }

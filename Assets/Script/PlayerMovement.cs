@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public bool hasPowerSpeed = false;
     public bool hasPowerAttack = false;
     public bool hasPowerShield = false;
+    public AudioClip pickedPower;
+    private AudioSource playerAudio;
 
     private void Start()
     {
@@ -17,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
         currentMoveSpeed = baseMoveSpeed;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        playerAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -61,7 +64,11 @@ public class PlayerMovement : MonoBehaviour
             case "Enemy":
                 if (hasPowerShield)
                 {
-                    Destroy(collision.gameObject); 
+                    EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.TakeDamage(enemyHealth.maxHealth); 
+                    }
                 }
                 else
                 {
@@ -111,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
     private void ActivatePowerUp(Collision collision, PowerType powerType)
     {
         Destroy(collision.gameObject);
+        playerAudio.PlayOneShot(pickedPower);
 
         switch (powerType)
         {

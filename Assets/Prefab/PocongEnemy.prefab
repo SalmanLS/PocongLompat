@@ -500,12 +500,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 3
-  horizontalForce: 5
-  jumpInterval: 1
+  horizontalForce: 5.839114
+  jumpInterval: 2.947147
   isOnGround: 1
   respawnTime: 2
   pocongStep: {fileID: 8300000, guid: 65d9836027675574b8d070c5718f99c7, type: 3}
-  pocongSound: {fileID: 8300000, guid: 811e9fb7c146ef940a1052c066d2c686, type: 3}
+  pocongSound: {fileID: 8300000, guid: 921469030b2c6044fad1f3d03f7fe974, type: 3}
+  isPocongSoundPlayed: 0
+  minSoundInterval: 4
+  maxSoundInterval: 8
 --- !u!54 &7542674505800072784
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -570,6 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthBar: {fileID: 2594500232102417306}
+  pocongDeath: {fileID: 8300000, guid: d425a1ba5e3359d4dbae8797acfcd0e5, type: 3}
 --- !u!82 &-513062009491133574
 AudioSource:
   m_ObjectHideFlags: 0

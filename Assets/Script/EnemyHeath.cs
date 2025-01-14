@@ -1,32 +1,32 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float maxHealth = 100f; 
-    private float currentHealth; 
-    public Slider healthBar; 
-
-    private PlayerMovement playerMovement;
+    public float maxHealth = 100f;
+    private float currentHealth;
+    public Slider healthBar;
+    public AudioClip pocongDeath;
+    private AudioSource playerAudio;
+    private bool isDead = false; // Prevent duplicate death logic
+    private Rigidbody enemyRb;
 
     private void Start()
     {
+        playerAudio = GetComponent<AudioSource>();
+        enemyRb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
         healthBar.value = currentHealth;
-        Debug.Log("Health Bar: " + healthBar.value);
-        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
-    }
-
-    private void Update()
-    {
-        
     }
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return; // Skip logic if already dead
+
         currentHealth -= damage;
 
-        if (currentHealth < 0f)
+        if (currentHealth <= 0f)
         {
             currentHealth = 0f;
             Die();
@@ -34,14 +34,41 @@ public class EnemyHealth : MonoBehaviour
 
         UpdateHealthBar();
     }
+
     private void UpdateHealthBar()
     {
-        healthBar.value = currentHealth; 
-        Debug.Log("Health: " + currentHealth);
+        healthBar.value = currentHealth;
     }
 
     private void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
+        // Play death sound
+        if (playerAudio && pocongDeath)
+        {
+            playerAudio.PlayOneShot(pocongDeath);
+        }
+
+        // Freeze the enemy in place
+        if (enemyRb)
+        {
+            enemyRb.isKinematic = true; // Stop physics interaction
+        }
+
+        // Optionally disable movement or rotation scripts here
+        StartCoroutine(KillPocong());
+    }
+
+    IEnumerator KillPocong()
+    {
+        yield return new WaitForSeconds(pocongDeath.length); // Wait for sound to finish
         Destroy(gameObject);
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 }

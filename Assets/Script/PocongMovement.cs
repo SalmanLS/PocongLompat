@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PocongMovement : MonoBehaviour
 {
-    private GameObject player; 
-    public float jumpForce = 10.0f; 
-    public float horizontalForce = 5.0f; 
-    public float jumpInterval = 2.0f; 
+    private GameObject player;
+    public float jumpForce = 3.0f;
+    public float horizontalForce = 5.0f;
+    public float jumpInterval = 2.0f;
     private Rigidbody enemyRb;
     public bool isOnGround = true;
     private float offGroundTime = 0f;
@@ -16,15 +17,19 @@ public class PocongMovement : MonoBehaviour
     public AudioClip pocongSound;
     private AudioSource playerAudio;
     public bool isPocongSoundPlayed = false;
-    public float soundChance = 0.25f;
+    public float minSoundInterval = 1f;
+    public float maxSoundInterval = 20f;
+    private EnemyHealth enemyHealth;
 
     void Start()
     {
+        enemyHealth = GetComponent<EnemyHealth>();
         playerAudio = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
         enemyRb = GetComponent<Rigidbody>();
         enemyRb.constraints = RigidbodyConstraints.FreezeRotation;
         StartCoroutine(JumpTowardPlayer());
+        StartCoroutine(RandomPocongSound());
     }
 
     void Update()
@@ -42,16 +47,17 @@ public class PocongMovement : MonoBehaviour
         {
             offGroundTime = 0f;
         }
-        if (isOnGround)
+        if (isOnGround && !GetComponent<EnemyHealth>().IsDead())
         {
             Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-            directionToPlayer.y = 0; 
+            directionToPlayer.y = 0; // Prevent rotation on the Y-axis
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             transform.rotation = Quaternion.Euler(-90, targetRotation.eulerAngles.y + 180, 0);
-            if (!isPocongSoundPlayed && Random.value <= soundChance)
-            {
-                StartCoroutine(PocongSound());
-            }
+        }
+        else if (GetComponent<EnemyHealth>().IsDead())
+        {
+            // Freeze position and stop movement logic
+            transform.position = transform.position;
         }
     }
 
@@ -72,21 +78,31 @@ public class PocongMovement : MonoBehaviour
 
                 isOnGround = false;
             }
-            yield return new WaitForSeconds(jumpInterval); 
+            yield return new WaitForSeconds(jumpInterval);
         }
     }
 
-    IEnumerator PocongSound()
+    IEnumerator RandomPocongSound()
     {
-        isPocongSoundPlayed = true;
-        playerAudio.PlayOneShot(pocongSound);
-        yield return new WaitForSeconds(3f);
-        isPocongSoundPlayed = false;
+        while (true)
+        {
+            float randomInterval = Random.Range(minSoundInterval, maxSoundInterval);
+            yield return new WaitForSeconds(randomInterval);
+
+            if (!isPocongSoundPlayed)
+            {
+                isPocongSoundPlayed = true;
+                playerAudio.PlayOneShot(pocongSound);
+                yield return new WaitForSeconds(pocongSound.length);
+                isPocongSoundPlayed = false;
+            }
+        }
     }
+
     private void Respawn()
     {
         transform.position =  new Vector3(player.transform.position.x + 1.5f, 2.0f, player.transform.position.z + 1.5f);
-        offGroundTime = 0f; 
+        offGroundTime = 0f;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -102,7 +118,7 @@ public class PocongMovement : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isOnGround = false; 
+            isOnGround = false;
         }
     }
 }
